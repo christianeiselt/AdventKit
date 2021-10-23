@@ -1,3 +1,3 @@
 # AdventKit
 
-A description of this package.
+This package contains functionality for Advent of Code puzzles.
