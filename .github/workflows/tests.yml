@@ -39,8 +39,8 @@ jobs:
 
       - uses: codecov/codecov-action@v2
         with:
-          files: ./.build/debug/codecov/AdventKit.json
-          fail_ci_if_error: true
+          files: "*"
+          fail_ci_if_error: false
           verbose: true
 
       - name: Upload reports as artifact
