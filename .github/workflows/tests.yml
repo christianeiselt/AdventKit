@@ -38,3 +38,10 @@ jobs:
           files: ./build/debug/codecov/AdventKit.json
           fail_ci_if_error: true
           verbose: true
+
+      - name: Upload reports as artifact
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: AdventKit-artifact
+          path: ${{ github.workspace }}
