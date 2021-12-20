@@ -32,3 +32,8 @@ jobs:
         run: |
           cd Sources/AdventKit
           swift test  --enable-code-coverage --verbose
+
+      - uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+          verbose: true
