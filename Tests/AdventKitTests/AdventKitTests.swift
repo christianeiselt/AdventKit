@@ -8,4 +8,8 @@ final class AdventKitTests: XCTestCase {
         // results.
         XCTAssertEqual(AdventKit().text, "Hello, World!")
     }
+
+    static var allTests = [
+        ("testExample", testExample),
+    ]
 }

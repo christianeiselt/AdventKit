@@ -9,4 +9,9 @@ final class InputConverterTests: XCTestCase {
     func testGetLinesAsArray() throws {
         XCTAssertEqual(InputConverter().getLinesAsArray(input: "2x3x4\n3x4x5"), ["2x3x4", "3x4x5"])
     }
+
+    static var allTests = [
+        ("testGetLinesSplittedAs2DIntArray", testGetLinesSplittedAs2DIntArray),
+        ("testGetLinesAsArray", testGetLinesAsArray),
+    ]
 }
