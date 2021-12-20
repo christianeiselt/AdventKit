@@ -33,6 +33,10 @@ jobs:
           cd Sources/AdventKit
           swift test  --enable-code-coverage --verbose
 
+      - name: Check coverage file location
+        run: |
+          ls -la ./build/debug/codecov/
+
       - uses: codecov/codecov-action@v2
         with:
           files: ./build/debug/codecov/AdventKit.json
