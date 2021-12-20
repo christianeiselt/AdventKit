@@ -9,16 +9,5 @@
     "package-lock.json",
     "report"
   ],
-  "words": [
-    "Autoformatter",
-    "markdownlint",
-    "popd",
-    "pushd",
-    "styfle",
-    "swiftpm",
-    "xcodeproj",
-    "xcuserdata",
-    "xcworkspace",
-    "xcworkspacedata"
-  ]
+  "words": ["codecov"]
 }
