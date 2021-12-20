@@ -33,6 +33,9 @@ jobs:
           cd Sources/AdventKit
           swift test  --enable-code-coverage --verbose
 
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v1.5.0
+
       - name: Convert coverage data
         run: |
           llvm-cov export -formal="lcov" .build/debug/AdventKitTests.xctest/Contents/MacOS/AdventKitTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
