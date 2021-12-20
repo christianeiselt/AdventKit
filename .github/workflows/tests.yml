@@ -35,11 +35,11 @@ jobs:
 
       - name: Check coverage file location
         run: |
-          ls -la ./build/debug/codecov/
+          ls -la ./.build/debug/codecov/
 
       - uses: codecov/codecov-action@v2
         with:
-          files: ./build/debug/codecov/AdventKit.json
+          files: ./.build/debug/codecov/AdventKit.json
           fail_ci_if_error: true
           verbose: true
 
