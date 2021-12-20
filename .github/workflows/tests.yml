@@ -24,7 +24,11 @@ jobs:
         run: swift --version
 
       - name: Build
-        run: ./buildAll.sh
+        run: |
+          cd Sources/AdventKit
+          swift build -c release
 
       - name: Test
-        run: ./testAll.sh
+        run: |
+          cd Sources/AdventKit
+          swift test  --enable-code-coverage --verbose
