@@ -1,0 +1,30 @@
+---
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  swift-job:
+    runs-on: macOS-latest
+
+    steps:
+      - name: Cancel previous jobs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+
+      - uses: actions/checkout@v2
+
+      - name: Platform check
+        run: uname -a
+
+      - name: swift info
+        run: swift --version
+
+      - name: Build
+        run: ./buildAll.sh
+
+      - name: Test
+        run: ./testAll.sh
