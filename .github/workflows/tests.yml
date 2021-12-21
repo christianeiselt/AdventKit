@@ -37,19 +37,20 @@ jobs:
         # uses: slashmo/install-swift@v0.1.0
         # sudo apt-get install -y llvm
         run: |
-          add-apt-repository -y ppa:ubuntu-toolchain-r/test
-          add-apt-repository -y ppa:mhier/libboost-latest
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main >> /etc/apt/sources.list"
-          bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main >> /etc/apt/sources.list"
-          bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main >> /etc/apt/sources.list"
-          apt-get update
+          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+          sudo add-apt-repository -y ppa:mhier/libboost-latest
+          sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          sudo bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main >> /etc/apt/sources.list"
+          sudo bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main >> /etc/apt/sources.list"
+          sudo bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main >> /etc/apt/sources.list"
+          sudo apt-get update
           which llvm-cov
 
       - name: Convert coverage data # llvm-cov export -format="lcov" .build/debug/AdventKitPackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov
         run: |
           llvm-cov export -format="lcov" ".build/x86_64-apple-macosx/debug/codecov/AdventKit.json" -instr-profile ".build/debug/codecov/default.profdata" > info.cov
           bash <(curl https://codecov.io/bash)
+
       - uses: codecov/codecov-action@v2
         with:
           files: "*"
