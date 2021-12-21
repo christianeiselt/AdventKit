@@ -32,9 +32,11 @@ jobs:
           swift test  --enable-code-coverage --show-codecov-path --verbose
           xcrun llvm-cov export -format "lcov" \
             .build/debug/AdventKitPackageTests.xctest/Contents/MacOs/AdventKitPackageTests \
+            -ignore-filename-regex="\/Tests\/" \
             -instr-profile=.build/debug/codecov/default.profdata > info.lcov
-          bash (<curl https://codecov.io/bash)
-
+          curl -Os https://uploader.codecov.io/latest/macos/codecov
+          chmod +x codecov
+          ./codecov -f info.lcov
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v2
         with:
