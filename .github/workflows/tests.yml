@@ -34,10 +34,10 @@ jobs:
           swift test  --enable-code-coverage --show-codecov-path --verbose
 
       - name: Install swift and llvm
-        uses: slashmo/install-swift@v0.1.0
-        # run: |
-        #   sudo apt-get install -y llvm
-        #   which llvm-cov
+        # uses: slashmo/install-swift@v0.1.0
+        # sudo apt-get install -y llvm
+        run: |
+          which llvm-cov
 
       - name: Convert coverage data # llvm-cov export -format="lcov" .build/debug/AdventKitPackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov
         run: |
