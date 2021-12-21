@@ -10,13 +10,17 @@
     "report"
   ],
   "words": [
+    "amazonlinux",
     "Autoformatter",
+    "codecov",
+    "lcov",
     "markdownlint",
-    "popd",
-    "pushd",
+    "profdata",
     "styfle",
     "swiftpm",
     "xcodeproj",
+    "xcrun",
+    "xctest",
     "xcuserdata",
     "xcworkspace",
     "xcworkspacedata"
