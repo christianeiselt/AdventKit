@@ -31,15 +31,16 @@ jobs:
       - name: Test
         run: |
           cd Sources/AdventKit
-          swift test  --enable-code-coverage --verbose
+          swift test  --enable-code-coverage --show-codecov-path --verbose
 
       - name: Install LLVM
         run: |
           sudo apt-get install -y llvm
+          which llvm-cov
 
       - name: Convert coverage data
         run: |
-          llvm-cov export -formal="lcov" .build/debug/AdventKitTests.xctest/Contents/MacOS/AdventKitTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
+          llvm-cov export -format="lcov" .build/debug/AdventKitTests.xctest/Contents/MacOS/AdventKitTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
 
       - uses: codecov/codecov-action@v2
         with:
