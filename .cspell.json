@@ -12,10 +12,14 @@
   "words": [
     "Autoformatter",
     "codecov",
+    "lcov",
     "markdownlint",
+    "profdata",
     "styfle",
     "swiftpm",
     "xcodeproj",
+    "xcrun",
+    "xctest",
     "xcuserdata",
     "xcworkspace",
     "xcworkspacedata"
