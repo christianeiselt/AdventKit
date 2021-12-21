@@ -17,36 +17,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  macOS:
-    runs-on: macOS-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: SPM tests
-        run: swift test --enable-code-coverage --sanitize=thread
-      - name: Convert coverage files
-        run: |
-          xcrun llvm-cov export -format "lcov" \
-            .build/debug/AdventKitPackageTests.xctest/Contents/MacOs/AdventKitPackageTests \
-            -ignore-filename-regex="\/Tests\/" \
-            -instr-profile=.build/debug/codecov/default.profdata > info.lcov
-      - name: Upload to codecov.io
-        uses: codecov/codecov-action@v2
-        with:
-          file: info.lcov
   linux:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image:
-          - "swift:5.4-bionic"
-          - "swift:5.5-bionic"
-          - "swift:5.5-focal"
-          - "swift:5.5-amazonlinux2"
-          - "swift:5.5-centos8"
-
-    container:
-      image: ${{ matrix.image }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
