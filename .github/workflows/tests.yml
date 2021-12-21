@@ -33,8 +33,9 @@ jobs:
           cd Sources/AdventKit
           swift test  --enable-code-coverage --verbose
 
-      - name: Install LLVM and Clang
-        uses: KyleMayes/install-llvm-action@v1.5.0
+      - name: Install LLVM
+        run: |
+          sudo apt-get install -y llvm
 
       - name: Convert coverage data
         run: |
