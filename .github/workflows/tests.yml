@@ -7,7 +7,7 @@ on:
 
 jobs:
   swift-job:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Cancel previous jobs
@@ -33,21 +33,9 @@ jobs:
           cd Sources/AdventKit
           swift test  --enable-code-coverage --show-codecov-path --verbose
 
-      - name: Install swift and llvm
-        # uses: slashmo/install-swift@v0.1.0
-        # sudo apt-get install -y llvm
-        run: |
-          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-          sudo add-apt-repository -y ppa:mhier/libboost-latest
-          sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          sudo bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main >> /etc/apt/sources.list"
-          sudo bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main >> /etc/apt/sources.list"
-          sudo bash -c "echo deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main >> /etc/apt/sources.list"
-          sudo apt-get update
-
       - name: Convert coverage data # llvm-cov export -format="lcov" .build/debug/AdventKitPackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov
         run: |
-          llvm-cov export -format="lcov" ".build/x86_64-apple-macosx/debug/codecov/AdventKit.json" -instr-profile ".build/debug/codecov/default.profdata" > info.cov
+          xcrun llvm-cov export -format="lcov" .build/debug/AdventKitPackageTests.xctest/Contents/MacOS/AdventKitPackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
           bash <(curl https://codecov.io/bash)
 
       - uses: codecov/codecov-action@v2
