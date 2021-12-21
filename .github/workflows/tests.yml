@@ -30,9 +30,6 @@ jobs:
       - name: Test
         run: |
           swift test  --enable-code-coverage --show-codecov-path --verbose
-
-      - name: Convert and upload coverage files
-        run: |
           xcrun llvm-cov export -format "lcov" \
             .build/debug/AdventKitPackageTests.xctest/Contents/MacOs/AdventKitPackageTests \
             -ignore-filename-regex="\/Tests\/" \
