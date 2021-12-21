@@ -2,13 +2,34 @@
 name: Tests
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**.swift"
+      - "**.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**.swift"
+      - "**.yml"
   workflow_dispatch:
-  # push:
-  # pull_request:
 
 jobs:
-  swift-job:
-    runs-on: macos-latest
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image:
+          - "swift:5.4-bionic"
+          - "swift:5.5-bionic"
+          - "swift:5.5-focal"
+          - "swift:5.5-amazonlinux2"
+          - "swift:5.5-centos8"
+
+    container:
+      image: ${{ matrix.image }}
 
     steps:
       - name: Cancel previous jobs
@@ -16,7 +37,8 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Platform check
         run: uname -a
@@ -24,20 +46,16 @@ jobs:
       - name: swift info
         run: swift --version
 
-      - name: Build
-        run: |
-          swift build
-
       - name: Test
         run: |
-          swift test  --enable-code-coverage --show-codecov-path --verbose
-          xcrun llvm-cov export -format "lcov" \
-            .build/x86_64-apple-macosx/debug/AdventKitPackageTests.xctest/Contents/MacOs/AdventKitPackageTests \
+          swift test --enable-test-discovery --enable-code-coverage
+
+      - name: Convert coverage files
+        run: |
+          llvm-cov export -format="lcov" \
+            .build/debug/AdventKitPackageTests.xctest \
             -ignore-filename-regex="\/Tests\/" \
-            -instr-profile=.build/x86_64-apple-macosx/debug/codecov/default.profdata > info.lcov
-          curl -Os https://uploader.codecov.io/latest/macos/codecov
-          chmod +x codecov
-          ./codecov -f info.lcov
+            -instr-profile .build/debug/codecov/default.profdata > info.lcov
 
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v2
