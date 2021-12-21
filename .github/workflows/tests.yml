@@ -40,7 +40,7 @@ jobs:
 
       - name: Convert coverage data # llvm-cov export -format="lcov" .build/debug/AdventKitPackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov
         run: |
-          llvm-cov export -format="lcov" ".build/debug/AdventKitPackageTests.xctest/Contents/MacOS/AdventKitPackageTests" -instr-profile ".build/debug/codecov/default.profdata" > info.cov
+          llvm-cov export -format="lcov" ".build/x86_64-apple-macosx/debug/codecov/AdventKit.json" -instr-profile ".build/debug/codecov/default.profdata" > info.cov
           bash <(curl https://codecov.io/bash)
       - uses: codecov/codecov-action@v2
         with:
