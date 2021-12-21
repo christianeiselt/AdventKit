@@ -33,21 +33,21 @@ jobs:
           cd Sources/AdventKit
           swift test  --enable-code-coverage --show-codecov-path --verbose
 
-      - name: Convert coverage data # llvm-cov export -format="lcov" .build/debug/AdventKitPackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov
+      - name: Convert coverage files
         run: |
-          xcrun llvm-cov export -format="lcov" .build/debug/AdventKitPackageTests.xctest/Contents/MacOS/AdventKitPackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
-          pwd
-          ls -l
-          cat info.lcov
-          bash <(curl https://codecov.io/bash)
+          xcrun llvm-cov export -format "lcov" \
+            .build/debug/AdventKitPackageTests.xctest/Contents/MacOs/AdventKitPackageTests \
+            -ignore-filename-regex="\/Tests\/" \
+            -instr-profile=.build/debug/codecov/default.profdata > info.lcov
 
-      - uses: codecov/codecov-action@v2
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v2
         with:
-          files: "*"
           fail_ci_if_error: false
+          file: info.lcov
           verbose: true
 
-      - name: Upload reports as artifact
+      - name: Upload reports as artifact at failure
         uses: actions/upload-artifact@v2
         if: failure()
         with:
