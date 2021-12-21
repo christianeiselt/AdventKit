@@ -23,10 +23,10 @@ jobs:
       - name: swift info
         run: swift --version
 
-      - name: Build
+      - name: Build #           swift build -c release
         run: |
           cd Sources/AdventKit
-          swift build -c release
+          swift build
 
       - name: Test
         run: |
